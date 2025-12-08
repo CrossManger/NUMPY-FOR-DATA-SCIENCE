@@ -76,8 +76,8 @@ Mô hình Logistic Regression được cài đặt từ đầu.
 
 * **Hypothesis (Dự đoán) (Hàm sigmoid):** 
     $$h_{\theta}(x) = \sigma(\theta^T x) = \frac{1}{1 + e^{-\theta^T x}}$$
-* **Hàm mất mát (Cost Function):** Binary Cross-Entropy. 
-[Image of Binary Cross-Entropy Loss Function]
+    
+* **Hàm mất mát (Cost Function):** Binary Cross-Entropy.
 
 * **Tối ưu hóa:** **Gradient Descent** sử dụng Vectorization và các phép tính số học tối ưu.
 
