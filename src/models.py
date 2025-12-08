@@ -36,7 +36,6 @@ def independent_ttest_numpy(data1, data2):
     return t_stat, df
 
 def train_test_split_numpy(X, y, test_size=0.2, random_state=42):
-    """Chia dữ liệu X, y thành tập huấn luyện và kiểm tra chỉ dùng NumPy."""
     np.random.seed(random_state)
     
     # 1. Tạo chỉ mục ngẫu nhiên
@@ -87,6 +86,7 @@ class LogisticRegressionNumPy:
         for i in range(self.n_iterations):
             # Tính toán đầu ra tuyến tính
             linear_model = np.dot(X, self.weights) + self.bias
+
             # Tính toán xác suất dự đoán (Hypothesis)
             y_predicted = self._sigmoid(linear_model)
             
@@ -116,7 +116,6 @@ class LogisticRegressionNumPy:
         return y_predicted_cls
     
 def accuracy_score_numpy(y_true, y_pred):
-    """Tính Accuracy."""
     return np.sum(y_true.flatten() == y_pred) / len(y_true)
 
 def precision_recall_f1_numpy(y_true, y_pred):
