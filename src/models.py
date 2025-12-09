@@ -60,6 +60,39 @@ def train_test_split_numpy(X, y, test_size=0.2, random_state=42):
     print(f"y_train: {y_train.shape}, y_test: {y_test.shape}")
     return X_train, X_test, y_train, y_test
 
+def chi_square_test_numpy(feature_col, target_col):
+    
+    # Loại bỏ tạm thời các giá trị 'Unknown' (hoặc Missing) cho mục đích kiểm định
+    valid_mask = (feature_col != 'Unknown')
+    feature_col = feature_col[valid_mask]
+    target_col = target_col[valid_mask]
+    
+    # 1. Lấy các nhãn duy nhất
+    unique_features = np.unique(feature_col)
+    unique_targets = np.unique(target_col)
+    
+    # 2. Lập Bảng Tần suất Quan sát (Observed Frequency)
+    observed = np.zeros((len(unique_features), len(unique_targets)))
+    
+    for i, f_val in enumerate(unique_features):
+        for j, t_val in enumerate(unique_targets):
+            observed[i, j] = np.sum((feature_col == f_val) & (target_col == t_val))
+            
+    # 3. Tính Bảng Tần suất Kỳ vọng (Expected Frequency)
+    row_totals = observed.sum(axis=1)
+    col_totals = observed.sum(axis=0)
+    total_samples = observed.sum()
+    
+    expected = np.outer(row_totals, col_totals) / total_samples
+    
+    # 4. Tính trị số Chi-square
+    chi_sq_stat = np.sum((observed - expected)**2 / (expected + 1e-9))
+    
+    # 5. Tính Bậc tự do (Degrees of Freedom)
+    df = (len(unique_features) - 1) * (len(unique_targets) - 1)
+    
+    return chi_sq_stat, df, observed 
+
 
 class LogisticRegressionNumPy:
     
