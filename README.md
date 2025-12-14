@@ -116,6 +116,14 @@ Mô hình Logistic Regression được cài đặt từ đầu.
 | **Accuracy** | 0.7764 | 0.7761 | Mức độ tiệm cận giữa mô hình tự cài đặt và mô hình chuẩn là gần như bằng nhau |
 | **F1-Score** | 0.4266 | 0.4342 | F1-Score là độ đo chính xác nhất cho dữ liệu mất cân bằng. |
 
+### 6.3. Đồ thị ROC Curve và AUC
+
+Để đánh giá khả năng phân biệt lớp của mô hình độc lập với ngưỡng cắt xác suất, ta sử dụng đồ thị ROC Curve (Receiver Operating Characteristic Curve) và giá trị AUC (Area Under the Curve).
+
+Kết quả của mô hình tự cài đặt (NumPy Custom LR): **0.7998**
+
+
+![Đồ thị ROC Curve của NumPy](figures/roc_curve.png)
 
 ---
 
@@ -135,9 +143,9 @@ NUMPY FOR DATA SCIENCE/
 │ ├── 02_preprocessing.ipynb
 │ └── 03_modeling.ipynb 
 ├── src/ 
-| ├── data_processing.py 
-| ├── model.py
-| └── visualization.py
+│ ├── data_processing.py 
+│ ├── model.py
+│ └── visualization.py
 ```
 
 ---
