@@ -169,3 +169,51 @@ def precision_recall_f1_numpy(y_true, y_pred):
     # Trả về tất cả các giá trị
     return TN, TP, FN, FP, precision, recall, f1_score
 
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+
+def calculate_metrics(y_true, y_pred, name):
+    """Tính toán và hiển thị các độ đo sử dụng hàm chuẩn của Sklearn."""
+    metrics = {
+        'Model': name,
+        'Accuracy': accuracy_score(y_true, y_pred),
+        'Precision': precision_score(y_true, y_pred, zero_division=0),
+        'Recall': recall_score(y_true, y_pred, zero_division=0),
+        'F1-Score': f1_score(y_true, y_pred, zero_division=0)
+    }
+    return metrics
+
+def calculate_roc_auc_numpy(y_true, y_proba):
+    """Tính toán các điểm trên đường cong ROC (FPR, TPR) và AUC chỉ dùng NumPy."""
+    # Lấy 100 ngưỡng từ 1.0 đến 0.0. Thứ tự này giúp FPR tăng dần từ 0 đến 1.
+    thresholds = np.linspace(1.0, 0.0, 100) 
+    tprs = [] # True Positive Rate
+    fprs = [] # False Positive Rate
+    
+    y_true_flat = y_true.flatten()
+    
+    # Lặp qua các ngưỡng
+    for thresh in thresholds:
+        # Dự đoán nhãn dựa trên ngưỡng
+        y_pred = (y_proba >= thresh).astype(int).flatten()
+        
+        # Tính toán các thành phần của Confusion Matrix
+        TP = np.sum((y_pred == 1) & (y_true_flat == 1))
+        FN = np.sum((y_pred == 0) & (y_true_flat == 1))
+        FP = np.sum((y_pred == 1) & (y_true_flat == 0))
+        TN = np.sum((y_pred == 0) & (y_true_flat == 0))
+        
+        # Tính TPR (Recall) và FPR (1 - Specificity)
+        TPR = TP / (TP + FN) if (TP + FN) > 0 else 0
+        FPR = FP / (FP + TN) if (FP + TN) > 0 else 0
+        
+        tprs.append(TPR)
+        fprs.append(FPR)
+
+    tprs = np.array(tprs)
+    fprs = np.array(fprs)
+    
+    
+    # Tính AUC bằng quy tắc hình thang (np.trapz)
+    auc = np.trapezoid(tprs, fprs)
+    
+    return fprs, tprs, auc
