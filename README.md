@@ -123,7 +123,7 @@ Mô hình Logistic Regression được cài đặt từ đầu.
 Kết quả của mô hình tự cài đặt (NumPy Custom LR): **0.7998**
 
 
-![Đồ thị ROC Curve của NumPy](figures/roc_curve.png)
+![Đồ thị ROC Curve của NumPy](<img width="1000" height="800" alt="Image" src="https://github.com/user-attachments/assets/ca7bc7de-0903-4060-8733-051947348855" />)
 
 ---
 
